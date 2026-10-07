@@ -1,0 +1,48 @@
+﻿FSCK started by root (auth:SIMPLE) from /172.18.0.5 for path /grupo3/dataset_1GB/dataset_grupo3_1GB at Wed Oct 07 22:31:15 UTC 2026
+/grupo3/dataset_1GB/dataset_grupo3_1GB 1073741824 bytes, replicated: replication=2, 8 block(s):  OK
+0. BP-1691608722-172.18.0.5-1791411422318:blk_1073741830_1006 len=134217728 Live_repl=2  [DatanodeInfoWithStorage[172.18.0.4:9866,DS-07f10e27-bf91-46cc-a6b0-a56345091c81,DISK], DatanodeInfoWithStorage[172.18.0.7:9866,DS-dea7671d-a5a5-4376-8150-9b5c2874c5ce,DISK]]
+1. BP-1691608722-172.18.0.5-1791411422318:blk_1073741831_1007 len=134217728 Live_repl=2  [DatanodeInfoWithStorage[172.18.0.7:9866,DS-dea7671d-a5a5-4376-8150-9b5c2874c5ce,DISK], DatanodeInfoWithStorage[172.18.0.8:9866,DS-37b78e12-382f-4927-b8fb-4c5ba0a10548,DISK]]
+2. BP-1691608722-172.18.0.5-1791411422318:blk_1073741832_1008 len=134217728 Live_repl=2  [DatanodeInfoWithStorage[172.18.0.4:9866,DS-07f10e27-bf91-46cc-a6b0-a56345091c81,DISK], DatanodeInfoWithStorage[172.18.0.8:9866,DS-37b78e12-382f-4927-b8fb-4c5ba0a10548,DISK]]
+3. BP-1691608722-172.18.0.5-1791411422318:blk_1073741833_1009 len=134217728 Live_repl=2  [DatanodeInfoWithStorage[172.18.0.4:9866,DS-07f10e27-bf91-46cc-a6b0-a56345091c81,DISK], DatanodeInfoWithStorage[172.18.0.7:9866,DS-dea7671d-a5a5-4376-8150-9b5c2874c5ce,DISK]]
+4. BP-1691608722-172.18.0.5-1791411422318:blk_1073741834_1010 len=134217728 Live_repl=2  [DatanodeInfoWithStorage[172.18.0.8:9866,DS-37b78e12-382f-4927-b8fb-4c5ba0a10548,DISK], DatanodeInfoWithStorage[172.18.0.4:9866,DS-07f10e27-bf91-46cc-a6b0-a56345091c81,DISK]]
+5. BP-1691608722-172.18.0.5-1791411422318:blk_1073741835_1011 len=134217728 Live_repl=2  [DatanodeInfoWithStorage[172.18.0.7:9866,DS-dea7671d-a5a5-4376-8150-9b5c2874c5ce,DISK], DatanodeInfoWithStorage[172.18.0.4:9866,DS-07f10e27-bf91-46cc-a6b0-a56345091c81,DISK]]
+6. BP-1691608722-172.18.0.5-1791411422318:blk_1073741836_1012 len=134217728 Live_repl=2  [DatanodeInfoWithStorage[172.18.0.7:9866,DS-dea7671d-a5a5-4376-8150-9b5c2874c5ce,DISK], DatanodeInfoWithStorage[172.18.0.4:9866,DS-07f10e27-bf91-46cc-a6b0-a56345091c81,DISK]]
+7. BP-1691608722-172.18.0.5-1791411422318:blk_1073741837_1013 len=134217728 Live_repl=2  [DatanodeInfoWithStorage[172.18.0.8:9866,DS-37b78e12-382f-4927-b8fb-4c5ba0a10548,DISK], DatanodeInfoWithStorage[172.18.0.4:9866,DS-07f10e27-bf91-46cc-a6b0-a56345091c81,DISK]]
+
+
+Status: HEALTHY
+ Number of data-nodes:	3
+ Number of racks:		1
+ Total dirs:			0
+ Total symlinks:		0
+
+Replicated Blocks:
+ Total size:	1073741824 B
+ Total files:	1
+ Total blocks (validated):	8 (avg. block size 134217728 B)
+ Minimally replicated blocks:	8 (100.0 %)
+ Over-replicated blocks:	0 (0.0 %)
+ Under-replicated blocks:	0 (0.0 %)
+ Mis-replicated blocks:		0 (0.0 %)
+ Default replication factor:	2
+ Average block replication:	2.0
+ Missing blocks:		0
+ Corrupt blocks:		0
+ Missing replicas:		0 (0.0 %)
+
+Erasure Coded Block Groups:
+ Total size:	0 B
+ Total files:	0
+ Total block groups (validated):	0
+ Minimally erasure-coded block groups:	0
+ Over-erasure-coded block groups:	0
+ Under-erasure-coded block groups:	0
+ Unsatisfactory placement block groups:	0
+ Average block group size:	0.0
+ Missing block groups:		0
+ Corrupt block groups:		0
+ Missing internal blocks:	0
+FSCK ended at Wed Oct 07 22:31:15 UTC 2026 in 6 milliseconds
+
+
+The filesystem under path '/grupo3/dataset_1GB/dataset_grupo3_1GB' is HEALTHY
