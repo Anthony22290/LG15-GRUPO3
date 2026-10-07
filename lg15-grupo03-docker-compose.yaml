@@ -1,7 +1,6 @@
 version: "3"
 
 services:
-# Setting Up HDFS & YARN #
   namenode:
     image: mrugankray/namenode-spark-airflow-flume-zepplin:1.1
     container_name: namenode
@@ -9,11 +8,11 @@ services:
     ports:
       - 9870:9870
       - 9000:9000
-      - 8082:8082 # zeppelin ui
-      - 8080:8080 # spark master web ui
-      - 8081:8081 # spark slave web ui
-      - 4040:4040 # spark driver web ui
-      - 3000:3000 # airflow ui
+      - 8082:8082
+      - 8080:8080
+      - 8081:8081
+      - 4040:4040
+      - 3000:3000
     volumes:
       - hadoop_namenode:/hadoop/dfs/name
       - hadoop_namenode_conda:/root/anaconda
@@ -34,13 +33,14 @@ services:
     env_file:
       - ./hadoop.env
 
-  datanode:
+
+  datanode1:
     image: mrugankray/datanode-python:1.0
-    container_name: datanode
+    container_name: datanode1
     restart: always
     volumes:
-      - hadoop_datanode:/hadoop/dfs/data
-      - hadoop_datanode_conda:/root/anaconda
+      - hadoop_datanode1:/hadoop/dfs/data
+      - hadoop_datanode1_conda:/root/anaconda
       - ./configs/datanode_bashrc.txt:/root/.bashrc
     environment:
       SERVICE_PRECONDITION: "namenode:9870"
@@ -50,6 +50,41 @@ services:
     env_file:
       - ./hadoop.env
 
+
+  datanode2:
+    image: mrugankray/datanode-python:1.0
+    container_name: datanode2
+    restart: always
+    volumes:
+      - hadoop_datanode2:/hadoop/dfs/data
+      - hadoop_datanode2_conda:/root/anaconda
+      - ./configs/datanode_bashrc.txt:/root/.bashrc
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+      CORE_CONF_fs_defaultFS: "hdfs://namenode:9000"
+    ports:
+      - "9865:9864"
+    env_file:
+      - ./hadoop.env
+
+
+  datanode3:
+    image: mrugankray/datanode-python:1.0
+    container_name: datanode3
+    restart: always
+    volumes:
+      - hadoop_datanode3:/hadoop/dfs/data
+      - hadoop_datanode3_conda:/root/anaconda
+      - ./configs/datanode_bashrc.txt:/root/.bashrc
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+      CORE_CONF_fs_defaultFS: "hdfs://namenode:9000"
+    ports:
+      - "9866:9864"
+    env_file:
+      - ./hadoop.env
+
+
   resourcemanager:
     image: mrugankray/resourcemanager-python:1.0
     container_name: resourcemanager
@@ -58,11 +93,12 @@ services:
       - hadoop_resourcemanager_conda:/root/anaconda
       - ./configs/resourcemanager_bashrc.txt:/root/.bashrc
     environment:
-      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864"
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864"
     ports:
       - "8088:8088"
     env_file:
       - ./hadoop.env
+
 
   nodemanager:
     image: mrugankray/nodemanager-python:1.0
@@ -72,19 +108,20 @@ services:
       - hadoop_nodemanager_conda:/root/anaconda
       - ./configs/nodemanager_bashrc.txt:/root/.bashrc
     environment:
-      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 resourcemanager:8088"
     ports:
       - "8042:8042"
-      - "19888:19888" # to access job history
+      - "19888:19888"
     env_file:
       - ./hadoop.env
+
 
   historyserver:
     image: bde2020/hadoop-historyserver:2.0.0-hadoop3.2.1-java8
     container_name: historyserver
     restart: always
     environment:
-      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 resourcemanager:8088"
     ports:
       - "8188:8188"
     volumes:
@@ -92,14 +129,21 @@ services:
     env_file:
       - ./hadoop.env
 
+
 volumes:
   hadoop_namenode:
   hadoop_namenode_conda:
   hadoop_namenode_spark:
   hadoop_namenode_zeppelin:
   hadoop_namenode_flume:
-  hadoop_datanode:
-  hadoop_datanode_conda:
+
+  hadoop_datanode1:
+  hadoop_datanode1_conda:
+  hadoop_datanode2:
+  hadoop_datanode2_conda:
+  hadoop_datanode3:
+  hadoop_datanode3_conda:
+
   hadoop_resourcemanager_conda:
   hadoop_nodemanager_conda:
   hadoop_historyserver:
