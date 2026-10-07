@@ -255,15 +255,26 @@ HDFS había reconstruido las réplicas entre los DataNodes supervivientes.
 | Tamaño de bloque | 128 MiB | 128 MiB |
 | Factor de replicación | 2 | 2 |
 | DataNode afectado | DN2 | DN2 |
+| Bloques con réplica en DN2 antes de la falla | 4 | 60 |
 | DataNodes disponibles durante la falla | 2 | 2 |
+| Bloques subreplicados observados | 0 | 26 (32.5%) |
+| Replicación promedio durante la evidencia | 2.0 | 1.675 |
 | Bloques perdidos | 0 | 0 |
 | ¿Archivo accesible? | Sí | Sí |
 | ¿Archivo legible? | Sí | Sí |
-| Subreplicados en el `fsck` capturado | 0 | 0 |
-| Replicación promedio observada | 2.0 | 2.0 |
-| Estado observado | HEALTHY | HEALTHY |
+| Tiempo de recuperación | No cronometrado | No cronometrado |
+| Recuperación automática | Sí | Sí |
+| Estado del archivo | HEALTHY | HEALTHY |
 
-El dataset de 10 GiB generó diez veces más bloques que el dataset de 1 GiB, permitiendo observar una distribución de bloques más representativa de un sistema distribuido.
+### Interpretación
+
+En el experimento de 1 GiB, DN2 almacenaba réplicas de 4 de los 8 bloques. Cuando se capturó el estado durante la falla, HDFS ya había completado la reconstrucción de las réplicas, por lo que se observaron 0 bloques subreplicados y una replicación promedio de 2.0.
+
+En el experimento de 10 GiB, DN2 almacenaba réplicas de 60 de los 80 bloques antes de la falla. Durante la recuperación se logró capturar un estado intermedio en el que todavía existían 26 bloques subreplicados (32.5 %) y la replicación promedio era de 1.675.
+
+A pesar de la subreplicación, no existían bloques perdidos y el archivo permanecía en estado HEALTHY. Esto demuestra la diferencia entre disponibilidad y cumplimiento del factor de replicación: un archivo puede continuar disponible aunque temporalmente algunos de sus bloques tengan menos réplicas de las configuradas.
+
+El hecho de que inicialmente DN2 participara en 60 bloques y posteriormente solo quedaran 26 subreplicados indica que HDFS ya había comenzado el proceso de recuperación automática antes de obtener la evidencia.
 
 ---
 
