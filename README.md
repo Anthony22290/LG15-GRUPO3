@@ -3,7 +3,7 @@
 ## Universidad del Valle
 
 **Grupo:** 3  
-**Asignatura:** Tecnologías Emergentes / Big Data  
+**Asignatura:** Tecnologías Emergentes  
 **Práctica:** LG15 - Tolerancia a fallos y replicación de datos en HDFS
 
 ---
@@ -35,22 +35,24 @@ El clúster utilizado está compuesto por:
 
 Arquitectura:
 
-```text
-                    +----------------+
-                    |    NameNode    |
-                    |   namenode     |
-                    +-------+--------+
-                            |
-              +-------------+-------------+
-              |             |             |
-              v             v             v
-        +-----------+ +-----------+ +-----------+
-        | DataNode1 | | DataNode2 | | DataNode3 |
-        |    DN1    | |    DN2    | |    DN3    |
-        +-----------+ +-----------+ +-----------+
+```mermaid
+flowchart TD
+    NN["NameNode<br/>namenode<br/>HDFS: 9000<br/>Web UI: 9870"]
 
-              Factor de replicación = 2
+    DN1["DataNode 1<br/>datanode1"]
+    DN2["DataNode 2<br/>datanode2"]
+    DN3["DataNode 3<br/>datanode3"]
+
+    NN --> DN1
+    NN --> DN2
+    NN --> DN3
+
+    DN1 --> V1["Volumen HDFS<br/>hadoop_datanode1"]
+    DN2 --> V2["Volumen HDFS<br/>hadoop_datanode2"]
+    DN3 --> V3["Volumen HDFS<br/>hadoop_datanode3"]
 ```
+
+**Factor de replicación HDFS: 2**
 
 Cada DataNode utiliza un volumen independiente para almacenar los bloques de HDFS.
 
